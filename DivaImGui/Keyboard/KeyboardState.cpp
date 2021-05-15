@@ -1,6 +1,6 @@
 #include "KeyboardState.h"
 
-namespace DivaImGui::Input
+namespace ReplNau::Input
 {
 	bool KeyboardState::IsDown(BYTE keycode)
 	{

@@ -3,9 +3,9 @@
 #include "KeyboardState.h"
 #include "../Utilities/Stopwatch.h"
 
-using Stopwatch = DivaImGui::Utilities::Stopwatch;
+using Stopwatch = ReplNau::Utilities::Stopwatch;
 
-namespace DivaImGui::Input
+namespace ReplNau::Input
 {
 	constexpr float DOUBLE_TAP_THRESHOLD = 200.0f;
 	constexpr float INTERVAL_TAP_DELAY_THRESHOLD = 500.0f;

@@ -3,7 +3,7 @@
 #include <string>
 #include <fstream>
 
-namespace DivaImGui::FileSystem
+namespace ReplNau::FileSystem
 {
 	class TextFile
 	{

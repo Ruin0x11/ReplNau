@@ -2,7 +2,7 @@
 #include "ConfigFile.h"
 #include "../Utilities/Operations.h"
 
-namespace DivaImGui::FileSystem
+namespace ReplNau::FileSystem
 {
 	ConfigFile::ConfigFile(const std::string &path) : TextFile(path)
 	{

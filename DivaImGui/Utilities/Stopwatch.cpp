@@ -1,6 +1,6 @@
 #include "Stopwatch.h"
 
-namespace DivaImGui::Utilities
+namespace ReplNau::Utilities
 {
 	Stopwatch::Stopwatch()
 	{

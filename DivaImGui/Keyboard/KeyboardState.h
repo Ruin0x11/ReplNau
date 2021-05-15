@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
 
-namespace DivaImGui::Input
+namespace ReplNau::Input
 {
 	const int KEYBOARD_KEYS = 0xFF;
 

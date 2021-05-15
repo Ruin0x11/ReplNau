@@ -3,7 +3,7 @@
 #include "TextFile.h"
 #include <unordered_map>
 
-namespace DivaImGui::FileSystem
+namespace ReplNau::FileSystem
 {
 	class ConfigFile : public TextFile
 	{

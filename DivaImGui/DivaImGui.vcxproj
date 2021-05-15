@@ -23,32 +23,33 @@
     <ProjectGuid>{A275D083-3F99-4772-98F7-FDE089020F60}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DivaImGui</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <ProjectName>ReplNau</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -72,8 +73,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)Include;$(SolutionDir)Depedencies;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Libraries;$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Depedencies;$(SolutionDir)Depedencies\luajit;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libraries;$(SolutionDir)Depedencies\luajit;$(SolutionDir)Depedencies\luajit;$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -82,8 +83,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Microsoft DirectX SDK (June 2010)\Include;$(SolutionDir)Depedencies;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Libraries;D:\Microsoft DirectX SDK (June 2010)\Lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Depedencies;$(SolutionDir)Depedencies\luajit;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libraries;$(SolutionDir)Depedencies\luajit;D:\Microsoft DirectX SDK (June 2010)\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -107,9 +108,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;dwmapi.lib;Gdiplus.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;version.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua51.lib;opengl32.lib;dwmapi.lib;Gdiplus.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;version.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>Xinput.h</IgnoreSpecificDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -141,9 +145,12 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;dwmapi.lib;Gdiplus.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua51.lib;opengl32.lib;dwmapi.lib;Gdiplus.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>Xinput.h</IgnoreSpecificDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -167,41 +174,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Depedencies\imgui\imconfig.h" />
-    <ClInclude Include="..\Depedencies\imgui\imgui.h" />
-    <ClInclude Include="..\Depedencies\imgui\imgui_impl_opengl2.h" />
-    <ClInclude Include="..\Depedencies\imgui\imgui_impl_win32.h" />
-    <ClInclude Include="..\Depedencies\imgui\imgui_internal.h" />
-    <ClInclude Include="..\Depedencies\imgui\imstb_rectpack.h" />
-    <ClInclude Include="..\Depedencies\imgui\imstb_textedit.h" />
-    <ClInclude Include="..\Depedencies\imgui\imstb_truetype.h" />
-    <ClInclude Include="..\Depedencies\snappy\snappy-internal.h" />
-    <ClInclude Include="..\Depedencies\snappy\snappy-sinksource.h" />
-    <ClInclude Include="..\Depedencies\snappy\snappy-stubs-internal.h" />
-    <ClInclude Include="..\Depedencies\snappy\snappy-stubs-public.h" />
-    <ClInclude Include="..\Depedencies\snappy\snappy.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Constants101.h" />
     <ClInclude Include="DebugHook\DebugHook701.h" />
     <ClInclude Include="DX11\d3dclass.h" />
-    <ClInclude Include="DX11\graphicsclass.h" />
-    <ClInclude Include="DX11\inputclass.h" />
-    <ClInclude Include="DX11\systemclass.h" />
     <ClInclude Include="FileSystem\ConfigFile.h" />
     <ClInclude Include="FileSystem\TextFile.h" />
-    <ClInclude Include="GLComponent.h" />
-    <ClInclude Include="GLComponent101.h" />
-    <ClInclude Include="GLComponentDummy.h" />
-    <ClInclude Include="GLComponentGCST.h" />
-    <ClInclude Include="GLComponentLight.h" />
-    <ClInclude Include="GLHook\GLHook.h" />
-    <ClInclude Include="GLHook\GLHookConstants.h" />
+    <ClInclude Include="Hook\Hook.h" />
     <ClInclude Include="Keyboard\IInputDevice.h" />
     <ClInclude Include="Keyboard\Keyboard.h" />
     <ClInclude Include="Keyboard\KeyboardState.h" />
+    <ClInclude Include="Lua\Lua.h" />
     <ClInclude Include="MainModule.h" />
     <ClInclude Include="PV_Param\PVParam701.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Struct\DivaModel.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utilities\HookHelper.h" />
     <ClInclude Include="Utilities\Operations.h" />
@@ -213,32 +200,13 @@
     <ClCompile Include="..\Depedencies\detours\disasm.cpp" />
     <ClCompile Include="..\Depedencies\detours\disolx64.cpp" />
     <ClCompile Include="..\Depedencies\detours\disolx86.cpp" />
-    <ClCompile Include="..\Depedencies\detours\image.cpp" />
     <ClCompile Include="..\Depedencies\detours\modules.cpp" />
-    <ClCompile Include="..\Depedencies\GL\glew.c" />
-    <ClCompile Include="..\Depedencies\imgui\imgui.cpp" />
-    <ClCompile Include="..\Depedencies\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\Depedencies\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\Depedencies\imgui\imgui_impl_opengl2.cpp" />
-    <ClCompile Include="..\Depedencies\imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\Depedencies\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="..\Depedencies\snappy\snappy-sinksource.cc" />
-    <ClCompile Include="..\Depedencies\snappy\snappy-stubs-internal.cc" />
-    <ClCompile Include="..\Depedencies\snappy\snappy.cc" />
-    <ClCompile Include="DivaImGui.cpp" />
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="DX11\d3dclass.cpp" />
-    <ClCompile Include="DX11\graphicsclass.cpp" />
-    <ClCompile Include="DX11\inputclass.cpp" />
-    <ClCompile Include="DX11\systemclass.cpp" />
-    <ClCompile Include="FileSystem\ConfigFile.cpp" />
     <ClCompile Include="FileSystem\TextFile.cpp" />
-    <ClCompile Include="GLComponent.cpp" />
-    <ClCompile Include="GLComponent101.cpp" />
-    <ClCompile Include="GLComponentDummy.cpp" />
-    <ClCompile Include="GLComponentGCST.cpp" />
-    <ClCompile Include="GLComponentLight.cpp" />
-    <ClCompile Include="GLHook\GLHook.cpp" />
+    <ClCompile Include="Hook\Hook.cpp" />
+    <ClCompile Include="Lua\Lua.cpp" />
+    <ClCompile Include="ReplNau.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="FileSystem\ConfigFile.cpp" />
     <ClCompile Include="Keyboard\Keyboard.cpp" />
     <ClCompile Include="Keyboard\KeyboardState.cpp" />
     <ClCompile Include="MainModule.cpp" />
@@ -248,11 +216,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Struct\DivaModel.cpp" />
     <ClCompile Include="Utilities\Operations.cpp" />
     <ClCompile Include="Utilities\Stopwatch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DivaImGui.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\Lua\init.lua">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\repl</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\repl</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

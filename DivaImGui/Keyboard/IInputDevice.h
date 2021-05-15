@@ -1,6 +1,6 @@
 #pragma once
 
-namespace DivaImGui::Input
+namespace ReplNau::Input
 {
 	class IInputDevice
 	{

@@ -1,9 +1,12 @@
 #include "TextFile.h"
 #include <filesystem>
 
+#define _SILENCE_ALL_CXX20_DEPRECATION_WARNINGS
+
+
 namespace fs = std::filesystem;
 
-namespace DivaImGui::FileSystem
+namespace ReplNau::FileSystem
 {
 	TextFile::TextFile(const std::string &path)
 	{
@@ -22,7 +25,7 @@ namespace DivaImGui::FileSystem
 
 	bool TextFile::OpenRead()
 	{
-		fs::path configPath = fs::u8path(FileName);
+		fs::path configPath = fs::path(FileName);
 
 		if (!fs::exists(configPath))
 			return false;

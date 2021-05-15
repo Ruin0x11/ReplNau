@@ -38,7 +38,7 @@ namespace PVParam
 			LightParam LP[8];
 		} LightParams;
 
-		typedef struct {
+		typedef struct LightParam_Timed {
 			float time = -1;
 			int type = -1;
 			bool set = false;
@@ -78,7 +78,7 @@ namespace PVParam
 			Fog Data[3];
 		} Fogs;
 
-		typedef struct {
+		typedef struct Fog_Timed {
 			float time = -1;
 			int type = -1;
 			bool set = false;

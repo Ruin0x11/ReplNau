@@ -1,6 +1,6 @@
 #include "Keyboard.h"
 
-namespace DivaImGui::Input
+namespace ReplNau::Input
 {
 	Keyboard* Keyboard::instance;
 

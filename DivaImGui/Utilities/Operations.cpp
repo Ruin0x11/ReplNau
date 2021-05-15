@@ -1,7 +1,7 @@
 #pragma once
 #include "Operations.h"
 
-namespace DivaImGui::Utilities
+namespace ReplNau::Utilities
 {
 	std::vector<std::string> Split(const std::string& str, const std::string& delim)
 	{

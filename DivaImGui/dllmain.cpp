@@ -2,15 +2,14 @@
 #include "stdafx.h"
 #include "windows.h"
 #include "MainModule.h"
-#include "GLComponent.h"
 
 
 
 void AttachImGui()
 {
-	printf("[DivaImGui] Initializing hooks...\n");
-	DivaImGui::MainModule::initializeglcomp();
-	printf("[DivaImGui] Hooks initialized\n");
+    printf("[ReplNau] Initializing hooks...\n");
+    ReplNau::MainModule::initialize();
+    printf("[ReplNau] Hooks initialized\n");
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -23,7 +22,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     case DLL_PROCESS_ATTACH:
 		
 
-		DivaImGui::MainModule::Module = hModule;
+		ReplNau::MainModule::Module = hModule;
 		AttachImGui();
 		break;
     case DLL_THREAD_ATTACH:

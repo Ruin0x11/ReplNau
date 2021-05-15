@@ -3,7 +3,7 @@
 #include <string>
 #include <filesystem>
 #include "parser.hpp"
-#include "Utilities/HookHelper.h"
+#include "../Utilities/HookHelper.h"
 #include "DebugHook701.h"
 
 namespace DebugHooks
