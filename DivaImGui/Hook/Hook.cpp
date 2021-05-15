@@ -1,30 +1,38 @@
-#include <MinHook.h>
+#include "../stdafx.h"
 #include <detours/detours.h>
 #include <stdio.h>
 
+#include "../framework.h"
+#include "../MainModule.h"
 #include "Hook.h"
+#include "../Lua/Lua.h"
+
+#include "../Input/KeyConfig/ExtraBindings.h"
 
 namespace ReplNau {
-	typedef void(__cdecl* ftdivaEngineUpdate)();
+	//HOOK(void*, IMFTransformInitializer, 0x140420B90, void* a1, void* a2, IMFTransform** transform)
+	//{
+	//	return result;
+	//}
 
-	ftdivaEngineUpdate divaEngineUpdate;
+	HOOK(void, pvMenuInit, 0x1405c4400, __int64 a1) {
+		Lua::trigger_event("pv_menu_init");
+		pvMenuInit(a1);
+	}
 
-	void hookedDivaEngineUpdate() {
-		printf("[ReplNau] Diva Engine Update\n");
-		divaEngineUpdate();
+	HOOK(void, engineTickFrame, 0x140192230) {
+		MainModule::UpdateTick();
+		Input::KeyConfig::ExtraBindings::Update();
+		Lua::trigger_event("tick");
+		engineTickFrame();
 	}
 
     void Hook::init() {
-		void* ptr = (ftdivaEngineUpdate)0x14018CC40;
-		MH_Initialize();
-		MH_STATUS stat = MH_CreateHook(ptr, hookedDivaEngineUpdate, reinterpret_cast<void**>(&divaEngineUpdate));
-		if (stat != MH_OK)
-		{
-			printf("[ReplNau] Hook: %s\n", MH_StatusToString(stat));
-			return;
-		}
+		Lua::trigger_event("init");
 
-		MH_EnableHook(ptr);
+		INSTALL_HOOK(pvMenuInit);
+		INSTALL_HOOK(engineTickFrame);
+
 		printf("[ReplNau] Hooked\n");
 	}
 }

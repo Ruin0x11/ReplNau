@@ -1,7 +1,7 @@
 #pragma once
-#include "IInputDevice.h"
+#include "../IInputDevice.h"
 #include "KeyboardState.h"
-#include "../Utilities/Stopwatch.h"
+#include "../../Utilities/Stopwatch.h"
 
 using Stopwatch = ReplNau::Utilities::Stopwatch;
 

@@ -17,5 +17,9 @@ namespace ReplNau
 		static RECT GetWindowBounds();
 
 		static void initialize();
+		static void deinitialize();
+
+		static void InitializeTick();
+		static void UpdateTick();
 	};
 }

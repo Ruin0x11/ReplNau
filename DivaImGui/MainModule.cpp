@@ -3,6 +3,12 @@
 #include "MainModule.h"
 #include <filesystem>
 #include "FileSystem/ConfigFile.h"
+#include "Input/Mouse/Mouse.h"
+#include "Input/Xinput/Xinput.h"
+#include "Input/Keyboard/Keyboard.h"
+#include "Input/DirectInput/DirectInput.h"
+#include "Input/DirectInput/Ds4/DualShock4.h"
+#include "Input/DirectInput/GenericUsb/GenericUsbInput.h"
 
 namespace ReplNau
 {
@@ -25,8 +31,8 @@ namespace ReplNau
 		//}
 
 		printf("[ReplNau] Initialize\n");
-		ReplNau::Hook::init();
 		ReplNau::Lua::init();
+		ReplNau::Hook::init();
 	}
 
 	std::string MainModule::GetModuleDirectory()
@@ -49,5 +55,81 @@ namespace ReplNau
 		GetWindowRect(DivaWindowHandle, &windowRect);
 
 		return windowRect;
+	}
+
+	bool DeviceConnected = true;
+	bool FirstUpdateTick = true;
+	bool HasWindowFocus, HadWindowFocus;
+
+	void MainModule::InitializeTick()
+	{
+		MainModule::DivaWindowHandle = WindowFromDC(wglGetCurrentDC());
+
+		HRESULT diInitResult = Input::InitializeDirectInput(MainModule::Module);
+		if (FAILED(diInitResult))
+			printf("[ReplNau] InitializeTick(): Failed to initialize DirectInput. Error: 0x%08X\n", diInitResult);
+	}
+
+	void MainModule::UpdateTick()
+	{
+		if (FirstUpdateTick)
+		{
+			FirstUpdateTick = false;
+			MainModule::InitializeTick();
+		}
+
+		if (DeviceConnected)
+		{
+			DeviceConnected = false;
+
+			if (!Input::DualShock4::InstanceInitialized())
+			{
+				if (Input::DualShock4::TryInitializeInstance())
+					printf("[ReplNau] UpdateTick(): DualShock4 connected and initialized\n");
+			}
+
+			if (!Input::GenericUsbInput::InstanceInitialized())
+			{
+				if (Input::GenericUsbInput::TryInitializeInstance())
+					printf("[ReplNau] UpdateTick(): GenericUsbInput connected and initialized\n");
+			}
+		}
+
+		HasWindowFocus = MainModule::DivaWindowHandle == nullptr || GetForegroundWindow() == MainModule::DivaWindowHandle;
+
+		if (HasWindowFocus)
+		{
+			Input::Keyboard::GetInstance()->PollInput();
+			Input::Mouse::GetInstance()->PollInput();
+			Input::Xinput::GetInstance()->PollInput();
+
+			if (Input::DualShock4::GetInstance() != nullptr)
+			{
+				if (!Input::DualShock4::GetInstance()->PollInput())
+				{
+					Input::DualShock4::DeleteInstance();
+					printf("[ReplNau] UpdateTick(): DualShock4 connection lost\n");
+				}
+			}
+
+			if (Input::GenericUsbInput::GetInstance() != nullptr)
+			{
+				if (!Input::GenericUsbInput::GetInstance()->PollInput())
+				{
+					Input::GenericUsbInput::DeleteInstance();
+					printf("[ReplNau] UpdateTick(): GenericUsbInput connection lost\n");
+				}
+			}
+		}
+	}
+
+	void deinitialize()
+	{
+		delete Input::Keyboard::GetInstance();
+		delete Input::Mouse::GetInstance();
+		delete Input::DualShock4::GetInstance();
+		delete Input::GenericUsbInput::GetInstance();
+
+		Input::DisposeDirectInput();
 	}
 }

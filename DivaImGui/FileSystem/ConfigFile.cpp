@@ -4,17 +4,17 @@
 
 namespace ReplNau::FileSystem
 {
-	ConfigFile::ConfigFile(const std::string &path) : TextFile(path)
+	ConfigFile::ConfigFile(const std::string& path) : TextFile(path)
 	{
 		return;
 	}
 
-	ConfigFile::ConfigFile(const std::string &directory, const std::string &file) : TextFile(directory, file)
+	ConfigFile::ConfigFile(const std::string& directory, const std::string& file) : TextFile(directory, file)
 	{
 		return;
 	}
 
-	bool ConfigFile::TryGetValue(const std::string &key, std::string **value)
+	bool ConfigFile::TryGetValue(const std::string& key, std::string** value)
 	{
 		auto pair = ConfigMap.find(key);
 		bool found = pair != ConfigMap.end();
@@ -39,7 +39,7 @@ namespace ReplNau::FileSystem
 		return found ? pair->second == "true" : false;
 	}
 
-	float ConfigFile::GetFloatValue(const std::string & key)
+	float ConfigFile::GetFloatValue(const std::string& key)
 	{
 		auto pair = ConfigMap.find(key);
 		bool found = pair != ConfigMap.end();
@@ -47,7 +47,15 @@ namespace ReplNau::FileSystem
 		return found ? (float)atof(pair->second.c_str()) : 0.0f;
 	}
 
-	void ConfigFile::Parse(std::ifstream &fileStream)
+	std::string ConfigFile::GetStringValue(const std::string& key)
+	{
+		auto pair = ConfigMap.find(key);
+		bool found = pair != ConfigMap.end();
+
+		return found ? pair->second : "";
+	}
+
+	void ConfigFile::Parse(std::ifstream& fileStream)
 	{
 		std::string line;
 
@@ -67,14 +75,14 @@ namespace ReplNau::FileSystem
 			if (splitline.size() < 2)
 				continue;
 
-			for (auto &line : splitline)
+			for (auto& line : splitline)
 				Utilities::Trim(line);
 
 			ConfigMap.insert(std::make_pair(splitline[0], splitline[1]));
 		}
 	}
 
-	bool ConfigFile::IsComment(const std::string &line)
+	bool ConfigFile::IsComment(const std::string& line)
 	{
 		return line.size() <= 0 || line[0] == '#' || line[0] == '[' || (line.size() >= 2 && line.rfind("//", 0) == 0);
 	}

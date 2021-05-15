@@ -4,6 +4,7 @@
 #include <filesystem>
 #include "parser.hpp"
 #include "PVParam701.h"
+#include <sol/forward.hpp>
 
 namespace PVParam
 {
@@ -727,6 +728,93 @@ namespace PVParam
 				csv.close();
 				printf("[DivaImGui] Saved to %s\n", filename);
 			}
+		}
+
+		void Bind(sol::state& lua)
+		{
+			sol::usertype<Light_Param_RGB> player_type = 
+				lua.new_usertype<Light_Param_RGB>("Light_Param_RGB", sol::constructors<Light_Param_RGB()>());
+
+			player_type["speed"] = &Light_Param_RGB::Red;
+
+			typedef struct {
+				float Red, Green, Blue;
+			} Light_Param_RGB;
+
+			typedef struct {
+				float Red, Green, Blue, Alpha;
+			} Light_Param_RGBA;
+
+			typedef struct {
+				float X, Y, Z;
+			} Light_Param_XYZ;
+
+			typedef struct {
+				float X, Y, Z, W;
+			} Light_Param_XYZW;
+
+			typedef struct {
+				int32_t type;
+				Light_Param_RGBA Ambient;
+				Light_Param_RGBA Diffuse;
+				Light_Param_RGBA Specular;
+				Light_Param_XYZW Position;
+				Light_Param_XYZW Spot;
+				Light_Param_XYZW Spot2;
+				byte Unk[64];
+			} LightParam;
+
+			typedef struct {
+				LightParam LP[8];
+			} LightParams;
+
+			typedef struct LightParam_Timed {
+				float time = -1;
+				int type = -1;
+				bool set = false;
+				int32_t interp;
+				LightParam data;
+			} LightParam_Timed;
+
+			typedef struct {
+				int32_t ToneMap;
+				float Exposure;
+				float Gamma_1;
+				int32_t AutoExposure;
+				float Gamma_2;
+				float Unk_1;
+				int32_t SaturateLevel;
+				float Gamma_3;
+				float Unk_2;
+				Light_Param_XYZ Flare;
+				Light_Param_XYZ Shaft;
+				Light_Param_XYZ Ghost;
+				Light_Param_XYZ Radius;
+				Light_Param_XYZ Inten;
+			} PostProcess;
+
+			typedef struct {
+				int32_t type;
+				float Density;
+				float Start;
+				float End;
+				int32_t Unk_1;
+				Light_Param_RGB Color;
+				float Unk_2;
+				int32_t Unk_3;
+			} Fog;
+
+			typedef struct {
+				Fog Data[3];
+			} Fogs;
+
+			typedef struct Fog_Timed {
+				float time = -1;
+				int type = -1;
+				bool set = false;
+				int32_t interp;
+				Fog data;
+			} Fog_Timed;
 		}
 }
 

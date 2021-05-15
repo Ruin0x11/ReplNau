@@ -68,3 +68,28 @@ constexpr uint64_t ITEM_TABLE_END = ITEM_TABLE_START + 128;
 
 constexpr uint64_t MODEL_1P_ADDRESS = 0x0000000141135D90;
 constexpr uint64_t MODEL_2P_ADDRESS = 0x00000001411626F8;
+
+#define XINPUT_A 0x00
+#define XINPUT_B 0x01
+#define XINPUT_X 0x02
+#define XINPUT_Y 0x03
+#define XINPUT_UP 0x10
+#define XINPUT_DOWN 0x11
+#define XINPUT_LEFT 0x12
+#define XINPUT_RIGHT 0x13
+#define XINPUT_LS 0x20
+#define XINPUT_RS 0x21
+#define XINPUT_LT 0x22
+#define XINPUT_RT 0x23
+#define XINPUT_LSB 0x24
+#define XINPUT_RSB 0x25
+#define XINPUT_START 0x30
+#define XINPUT_BACK 0x31
+#define XINPUT_LUP 0x40
+#define XINPUT_LDOWN 0x41
+#define XINPUT_LLEFT 0x42
+#define XINPUT_LRIGHT 0x43
+#define XINPUT_RUP 0x50
+#define XINPUT_RDOWN 0x51
+#define XINPUT_RLEFT 0x52
+#define XINPUT_RRIGHT 0x53  

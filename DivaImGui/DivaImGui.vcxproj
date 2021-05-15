@@ -108,11 +108,11 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lua51.lib;opengl32.lib;dwmapi.lib;Gdiplus.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;version.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>XINPUT9_1_0.LIB;dinput8.lib;dxguid.lib;lua51.lib;opengl32.lib;dwmapi.lib;Gdiplus.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;version.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>Xinput.h</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\" &amp; xcopy /S /E /K /D /H /Y /B "$(SolutionDir)Lua\*" "D:\game\PDAFT\SBZV_7.01\plugins\repl"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -145,11 +145,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lua51.lib;opengl32.lib;dwmapi.lib;Gdiplus.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>XINPUT9_1_0.LIB;dinput8.lib;dxguid.lib;lua51.lib;opengl32.lib;dwmapi.lib;Gdiplus.lib;libMinHook-x64-v141-mdd.lib;XINPUT9_1_0.LIB;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>Xinput.h</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\" &amp; xcopy /S /E /K /D /H /Y /B "$(SolutionDir)Lua\*" "D:\game\PDAFT\SBZV_7.01\plugins\repl"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -180,10 +180,36 @@
     <ClInclude Include="DX11\d3dclass.h" />
     <ClInclude Include="FileSystem\ConfigFile.h" />
     <ClInclude Include="FileSystem\TextFile.h" />
+    <ClInclude Include="framework.h" />
     <ClInclude Include="Hook\Hook.h" />
-    <ClInclude Include="Keyboard\IInputDevice.h" />
-    <ClInclude Include="Keyboard\Keyboard.h" />
-    <ClInclude Include="Keyboard\KeyboardState.h" />
+    <ClInclude Include="Input\Bindings\Binding.h" />
+    <ClInclude Include="Input\Bindings\Ds4Binding.h" />
+    <ClInclude Include="Input\Bindings\GuBinding.h" />
+    <ClInclude Include="Input\Bindings\IInputBinding.h" />
+    <ClInclude Include="Input\Bindings\KeyboardBinding.h" />
+    <ClInclude Include="Input\Bindings\MouseBinding.h" />
+    <ClInclude Include="Input\Bindings\XinputBinding.h" />
+    <ClInclude Include="Input\DirectInput\Controller.h" />
+    <ClInclude Include="Input\DirectInput\DirectInput.h" />
+    <ClInclude Include="Input\DirectInput\DirectInputDevice.h" />
+    <ClInclude Include="Input\DirectInput\DirectInputMouse.h" />
+    <ClInclude Include="Input\DirectInput\Ds4\Ds4Button.h" />
+    <ClInclude Include="Input\DirectInput\Ds4\Ds4State.h" />
+    <ClInclude Include="Input\DirectInput\Ds4\DualShock4.h" />
+    <ClInclude Include="Input\DirectInput\GenericUsb\GenericUsbInput.h" />
+    <ClInclude Include="Input\DirectInput\GenericUsb\GuButton.h" />
+    <ClInclude Include="Input\DirectInput\GenericUsb\GuState.h" />
+    <ClInclude Include="Input\IInputDevice.h" />
+    <ClInclude Include="Input\Keyboard\Keyboard.h" />
+    <ClInclude Include="Input\Keyboard\KeyboardState.h" />
+    <ClInclude Include="Input\KeyConfig\Config.h" />
+    <ClInclude Include="Input\KeyConfig\ExtraBindings.h" />
+    <ClInclude Include="Input\KeyConfig\KeyString.h" />
+    <ClInclude Include="Input\KeyConfig\KeyStringHash.h" />
+    <ClInclude Include="Input\Mouse\Mouse.h" />
+    <ClInclude Include="Input\Mouse\MouseState.h" />
+    <ClInclude Include="Input\Xinput\Xinput.h" />
+    <ClInclude Include="Input\Xinput\XinputState.h" />
     <ClInclude Include="Lua\Lua.h" />
     <ClInclude Include="MainModule.h" />
     <ClInclude Include="PV_Param\PVParam701.h" />
@@ -191,8 +217,11 @@
     <ClInclude Include="Struct\DivaModel.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utilities\HookHelper.h" />
+    <ClInclude Include="Utilities\Math.h" />
     <ClInclude Include="Utilities\Operations.h" />
     <ClInclude Include="Utilities\Stopwatch.h" />
+    <ClInclude Include="Utilities\Vec2.h" />
+    <ClInclude Include="Utilities\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Depedencies\detours\creatwth.cpp" />
@@ -203,12 +232,33 @@
     <ClCompile Include="..\Depedencies\detours\modules.cpp" />
     <ClCompile Include="FileSystem\TextFile.cpp" />
     <ClCompile Include="Hook\Hook.cpp" />
+    <ClCompile Include="Input\Bindings\Binding.cpp" />
+    <ClCompile Include="Input\Bindings\Ds4Binding.cpp" />
+    <ClCompile Include="Input\Bindings\GuBinding.cpp" />
+    <ClCompile Include="Input\Bindings\KeyboardBinding.cpp" />
+    <ClCompile Include="Input\Bindings\MouseBinding.cpp" />
+    <ClCompile Include="Input\Bindings\XinputBinding.cpp" />
+    <ClCompile Include="Input\DirectInput\Controller.cpp" />
+    <ClCompile Include="Input\DirectInput\DirectInput.cpp" />
+    <ClCompile Include="Input\DirectInput\DirectInputDevice.cpp" />
+    <ClCompile Include="Input\DirectInput\DirectInputMouse.cpp" />
+    <ClCompile Include="Input\DirectInput\Ds4\Ds4State.cpp" />
+    <ClCompile Include="Input\DirectInput\Ds4\DualShock4.cpp" />
+    <ClCompile Include="Input\DirectInput\GenericUsb\GenericUsbInput.cpp" />
+    <ClCompile Include="Input\DirectInput\GenericUsb\GuState.cpp" />
+    <ClCompile Include="Input\Keyboard\Keyboard.cpp" />
+    <ClCompile Include="Input\Keyboard\KeyboardState.cpp" />
+    <ClCompile Include="Input\KeyConfig\Config.cpp" />
+    <ClCompile Include="Input\KeyConfig\ExtraBindings.cpp" />
+    <ClCompile Include="Input\KeyConfig\KeyString.cpp" />
+    <ClCompile Include="Input\KeyConfig\KeyStringHash.cpp" />
+    <ClCompile Include="Input\Mouse\Mouse.cpp" />
+    <ClCompile Include="Input\Xinput\Xinput.cpp" />
+    <ClCompile Include="Input\Xinput\XinputState.cpp" />
     <ClCompile Include="Lua\Lua.cpp" />
     <ClCompile Include="ReplNau.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="FileSystem\ConfigFile.cpp" />
-    <ClCompile Include="Keyboard\Keyboard.cpp" />
-    <ClCompile Include="Keyboard\KeyboardState.cpp" />
     <ClCompile Include="MainModule.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -217,8 +267,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Struct\DivaModel.cpp" />
+    <ClCompile Include="Utilities\Math.cpp" />
     <ClCompile Include="Utilities\Operations.cpp" />
     <ClCompile Include="Utilities\Stopwatch.cpp" />
+    <ClCompile Include="Utilities\Vec2.cpp" />
+    <ClCompile Include="Utilities\Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DivaImGui.rc" />
@@ -229,6 +282,10 @@
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\repl</DestinationFolders>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\repl</DestinationFolders>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Lua\thirdparty\bencode.lua" />
+    <None Include="..\Lua\thirdparty\jeejah.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -8,21 +8,21 @@ namespace ReplNau::FileSystem
 	class ConfigFile : public TextFile
 	{
 	public:
-		ConfigFile(const std::string &path);
-		ConfigFile(const std::string &directory, const std::string &file);
+		ConfigFile(const std::string& path);
+		ConfigFile(const std::string& directory, const std::string& file);
 
 		std::unordered_map<std::string, std::string> ConfigMap;
 
-		bool TryGetValue(const std::string &key, std::string **value);
+		bool TryGetValue(const std::string& key, std::string** value);
 		int GetIntegerValue(const std::string& key);
 		bool GetBooleanValue(const std::string& key);
 		float GetFloatValue(const std::string& key);
+		std::string GetStringValue(const std::string& key);
 
 	protected:
-		virtual void Parse(std::ifstream &fileStream) override;
+		virtual void Parse(std::ifstream& fileStream) override;
 
 	private:
-		bool IsComment(const std::string &line);
+		bool IsComment(const std::string& line);
 	};
 }
-

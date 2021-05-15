@@ -1,6 +1,6 @@
 # DivaImGui (x64)
 
-An in-game UI which can be used with [TLAC](https://github.com/samyuu/TotallyLegitArcadeController) or [PD-Loader](https://notabug.org/nastys/PD-Loader).
+An in-game UI which can be used with [ReplNau](https://github.com/samyuu/TotallyLegitArcadeController) or [PD-Loader](https://notabug.org/nastys/PD-Loader).
 
 # Download
 
@@ -10,4 +10,4 @@ An in-game UI which can be used with [TLAC](https://github.com/samyuu/TotallyLeg
 
 # Special Thanks
 
-[Samyuu](https://github.com/samyuu/) (for TLAC), [BesuBaru](https://github.com/BesuBaru), [somewhatlurker](https://github.com/somewhatlurker), [Raki Saionji](https://github.com/rakisaionji).
+[Samyuu](https://github.com/samyuu/) (for ReplNau), [BesuBaru](https://github.com/BesuBaru), [somewhatlurker](https://github.com/somewhatlurker), [Raki Saionji](https://github.com/rakisaionji).
