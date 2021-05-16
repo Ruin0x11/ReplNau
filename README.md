@@ -1,13 +1,1 @@
-# DivaImGui (x64)
-
-An in-game UI which can be used with [ReplNau](https://github.com/samyuu/TotallyLegitArcadeController) or [PD-Loader](https://notabug.org/nastys/PD-Loader).
-
-# Download
-
-[Development Build](https://ci.appveyor.com/project/lybxlpsv/divaimgui/build/artifacts) (Use this when using latest development build of PD Loader)
-
-[Guide for Intel (u)HD users](https://github.com/lybxlpsv/DivaImGui/wiki/AMD-and-Intel-Guide)
-
-# Special Thanks
-
-[Samyuu](https://github.com/samyuu/) (for ReplNau), [BesuBaru](https://github.com/BesuBaru), [somewhatlurker](https://github.com/somewhatlurker), [Raki Saionji](https://github.com/rakisaionji).
+# ReplNau（仮）
