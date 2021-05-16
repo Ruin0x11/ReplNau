@@ -3,7 +3,6 @@
 #include <string>
 #include <filesystem>
 #include "parser.hpp"
-#include "PVParam701.h"
 #include <sol/forward.hpp>
 
 namespace PVParam
@@ -730,91 +729,123 @@ namespace PVParam
 			}
 		}
 
-		void Bind(sol::state& lua)
-		{
-			sol::usertype<Light_Param_RGB> player_type = 
-				lua.new_usertype<Light_Param_RGB>("Light_Param_RGB", sol::constructors<Light_Param_RGB()>());
+  void Bind(sol::state& lua)
+  {
+	  sol::table C = lua["C"];
 
-			player_type["speed"] = &Light_Param_RGB::Red;
+    sol::usertype<Light_Param_RGB> Light_Param_RGB_type =
+      C.new_usertype<Light_Param_RGB>("Light_Param_RGB", sol::constructors<Light_Param_RGB()>(),
+                                        "r", &Light_Param_RGB::Red,
+                                        "g", &Light_Param_RGB::Green,
+                                        "b", &Light_Param_RGB::Blue);
 
-			typedef struct {
-				float Red, Green, Blue;
-			} Light_Param_RGB;
+    sol::usertype<Light_Param_RGBA> Light_Param_RGBA_type =
+      C.new_usertype<Light_Param_RGBA>("Light_Param_RGBA", sol::constructors<Light_Param_RGBA()>(),
+                                         "r", &Light_Param_RGBA::Red,
+                                         "g", &Light_Param_RGBA::Green,
+                                         "b", &Light_Param_RGBA::Blue,
+                                         "a", &Light_Param_RGBA::Alpha);
 
-			typedef struct {
-				float Red, Green, Blue, Alpha;
-			} Light_Param_RGBA;
+    sol::usertype<Light_Param_XYZ> Light_Param_XYZ_type =
+      C.new_usertype<Light_Param_XYZ>("Light_Param_XYZ", sol::constructors<Light_Param_XYZ()>(),
+                                        "x", &Light_Param_XYZ::X,
+                                        "y", &Light_Param_XYZ::Y,
+                                        "z", &Light_Param_XYZ::Z);
 
-			typedef struct {
-				float X, Y, Z;
-			} Light_Param_XYZ;
+    sol::usertype<Light_Param_XYZW> Light_Param_XYZW_type =
+      C.new_usertype<Light_Param_XYZW>("Light_Param_XYZW", sol::constructors<Light_Param_XYZW()>(),
+                                         "x", &Light_Param_XYZW::X,
+                                         "y", &Light_Param_XYZW::Y,
+                                         "z", &Light_Param_XYZW::Z,
+                                         "w", &Light_Param_XYZW::W);
 
-			typedef struct {
-				float X, Y, Z, W;
-			} Light_Param_XYZW;
+    sol::usertype<LightParam> LightParam_type =
+      C.new_usertype<LightParam>("LightParam", sol::constructors<LightParam()>(),
+                                   "type", &LightParam::type,
+                                   "ambient", &LightParam::Ambient,
+                                   "diffuse", &LightParam::Diffuse,
+                                   "specular", &LightParam::Specular,
+                                   "position", &LightParam::Position,
+                                   "spot", &LightParam::Spot,
+                                   "spot2", &LightParam::Spot2,
+                                   "unk", &LightParam::Unk);
 
-			typedef struct {
-				int32_t type;
-				Light_Param_RGBA Ambient;
-				Light_Param_RGBA Diffuse;
-				Light_Param_RGBA Specular;
-				Light_Param_XYZW Position;
-				Light_Param_XYZW Spot;
-				Light_Param_XYZW Spot2;
-				byte Unk[64];
-			} LightParam;
+    sol::usertype<LightParams> LightParams_type =
+      C.new_usertype<LightParams>("LightParams", sol::constructors<LightParams()>(),
+                                    sol::meta_function::index, [](LightParams& self, size_t key) {
+                                      if (key < 1 || key > 8)
+                                        throw sol::error("Index out of bounds");
+                                      return &self.LP[key-1];
+                                    });
 
-			typedef struct {
-				LightParam LP[8];
-			} LightParams;
+    sol::usertype<LightParam_Timed> LightParam_Timed_type =
+      C.new_usertype<LightParam_Timed>("LightParam_Timed", sol::constructors<LightParam_Timed()>(),
+                                         "time", &LightParam_Timed::time,
+                                         "type", &LightParam_Timed::type,
+                                         "set", &LightParam_Timed::set,
+                                         "interp", &LightParam_Timed::interp,
+                                         "data", &LightParam_Timed::data);
 
-			typedef struct LightParam_Timed {
-				float time = -1;
-				int type = -1;
-				bool set = false;
-				int32_t interp;
-				LightParam data;
-			} LightParam_Timed;
+    sol::usertype<PostProcess> PostProcess_type =
+      C.new_usertype<PostProcess>("PostProcess", sol::constructors<PostProcess()>(),
+                                    "tone_map", &PostProcess::ToneMap,
+                                    "exposure", &PostProcess::Exposure,
+                                    "gamma_1", &PostProcess::Gamma_1,
+                                    "auto_exposure", &PostProcess::AutoExposure,
+                                    "gamma_2", &PostProcess::Gamma_2,
+                                    "unk_1", &PostProcess::Unk_1,
+                                    "saturate_level", &PostProcess::SaturateLevel,
+                                    "gamma_3", &PostProcess::Gamma_3,
+                                    "unk_2", &PostProcess::Unk_2,
+                                    "flare", &PostProcess::Flare,
+                                    "shaft", &PostProcess::Shaft,
+                                    "ghost", &PostProcess::Ghost,
+                                    "radius", &PostProcess::Radius,
+                                    "inten", &PostProcess::Inten);
 
-			typedef struct {
-				int32_t ToneMap;
-				float Exposure;
-				float Gamma_1;
-				int32_t AutoExposure;
-				float Gamma_2;
-				float Unk_1;
-				int32_t SaturateLevel;
-				float Gamma_3;
-				float Unk_2;
-				Light_Param_XYZ Flare;
-				Light_Param_XYZ Shaft;
-				Light_Param_XYZ Ghost;
-				Light_Param_XYZ Radius;
-				Light_Param_XYZ Inten;
-			} PostProcess;
+    sol::usertype<Fog> Fog_type =
+      C.new_usertype<Fog>("Fog", sol::constructors<Fog()>(),
+                            "type", &Fog::type,
+                            "density", &Fog::Density,
+                            "start", &Fog::Start,
+                            "end", sol::property(&Fog::End, &Fog::End),
+                            "unk_1", &Fog::Unk_1,
+                            "color", &Fog::Color,
+                            "unk_2", &Fog::Unk_2,
+                            "unk_3", &Fog::Unk_3);
 
-			typedef struct {
-				int32_t type;
-				float Density;
-				float Start;
-				float End;
-				int32_t Unk_1;
-				Light_Param_RGB Color;
-				float Unk_2;
-				int32_t Unk_3;
-			} Fog;
+    sol::usertype<Fogs> Fogs_type =
+      C.new_usertype<Fogs>("Fogs", sol::constructors<Fogs()>(),
+                             sol::meta_function::index, [](Fogs& self, size_t key) -> sol::lua_value {
+                               if (key < 1 || key > 3)
+                                 return sol::lua_nil;
+                               return &self.Data[key - 1];
+                             });
 
-			typedef struct {
-				Fog Data[3];
-			} Fogs;
+    sol::usertype<Fog_Timed> Fog_Timed_type =
+      C.new_usertype<Fog_Timed>("Fog_Timed", sol::constructors<Fog_Timed()>(),
+                                  "time", &Fog_Timed::time,
+                                  "type", &Fog_Timed::type,
+                                  "set", &Fog_Timed::set,
+                                  "interp", &Fog_Timed::interp,
+                                  "data", &Fog_Timed::data);
 
-			typedef struct Fog_Timed {
-				float time = -1;
-				int type = -1;
-				bool set = false;
-				int32_t interp;
-				Fog data;
-			} Fog_Timed;
-		}
-}
+    sol::usertype<LightParamsData> LightParamsData_type =
+      C.new_usertype<LightParamsData>("LightParamsData", sol::constructors<LightParamsData()>(),
+                                        sol::meta_function::index, [](LightParamsData& self, size_t index) -> sol::lua_value {
+                                          if (index < 1 || index > self.count)
+                                            return sol::lua_nil;
+                                          return &self.data[index];
+                                        },
+                                        sol::meta_function::length, [](LightParamsData& self) { return self.count; });
 
+    sol::usertype<FogData> FogData_type =
+      C.new_usertype<FogData>("FogData", sol::constructors<FogData()>(),
+                                sol::meta_function::index, [](FogData& self, size_t index) -> sol::lua_value {
+                                  if (index < 1 || index > self.count)
+                                    return sol::lua_nil;
+                                  return &self.data[index];
+                                },
+                                sol::meta_function::length, [](FogData& self) { return self.count; });
+    }
+  }

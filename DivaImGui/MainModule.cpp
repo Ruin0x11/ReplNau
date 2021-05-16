@@ -68,6 +68,8 @@ namespace ReplNau
 		HRESULT diInitResult = Input::InitializeDirectInput(MainModule::Module);
 		if (FAILED(diInitResult))
 			printf("[ReplNau] InitializeTick(): Failed to initialize DirectInput. Error: 0x%08X\n", diInitResult);
+
+		Lua::trigger_event("engine_init");
 	}
 
 	void MainModule::UpdateTick()

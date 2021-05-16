@@ -138,9 +138,6 @@
     <ClInclude Include="Utilities\Vec3.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Input\Bindings\Binding.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Input\Bindings\Ds4Binding.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -160,6 +157,15 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Input\KeyConfig\ExtraBindings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\MemRightsLock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Bindings\Binding.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

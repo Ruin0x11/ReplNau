@@ -18,6 +18,9 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <PropertyGroup>
+    <DisableFastUpToDateCheck>True</DisableFastUpToDateCheck>
+  </PropertyGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A275D083-3F99-4772-98F7-FDE089020F60}</ProjectGuid>
@@ -102,6 +105,7 @@
       <PreprocessorDefinitions>NDEBUG;DIVAIMGUI_EXPORTS;_WINDOWS;_USRDLL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,7 +116,7 @@
       <IgnoreSpecificDefaultLibraries>Xinput.h</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\" &amp; xcopy /S /E /K /D /H /Y /B "$(SolutionDir)Lua\*" "D:\game\PDAFT\SBZV_7.01\plugins\repl"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\" &amp; xcopy /S /E /K /D /H /Y /B "D:\game\PDAFT\SBZV_7.01\plugins\repl\*" "$(SolutionDir)Lua\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -141,6 +145,7 @@
       <PreprocessorDefinitions>_DEBUG;DIVAIMGUI_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,7 +154,7 @@
       <IgnoreSpecificDefaultLibraries>Xinput.h</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\" &amp; xcopy /S /E /K /D /H /Y /B "$(SolutionDir)Lua\*" "D:\game\PDAFT\SBZV_7.01\plugins\repl"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(OutputPath)ReplNau.dva" &amp; xcopy /S /E /K /D /H /Y /B "$(OutputPath)*" "D:\game\PDAFT\SBZV_7.01\plugins\" &amp; xcopy /S /E /K /D /H /Y /B "D:\game\PDAFT\SBZV_7.01\plugins\repl\*" "$(SolutionDir)Lua\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -214,10 +219,12 @@
     <ClInclude Include="MainModule.h" />
     <ClInclude Include="PV_Param\PVParam701.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Struct\Camera.h" />
     <ClInclude Include="Struct\DivaModel.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utilities\HookHelper.h" />
     <ClInclude Include="Utilities\Math.h" />
+    <ClInclude Include="Utilities\MemRightsLock.h" />
     <ClInclude Include="Utilities\Operations.h" />
     <ClInclude Include="Utilities\Stopwatch.h" />
     <ClInclude Include="Utilities\Vec2.h" />

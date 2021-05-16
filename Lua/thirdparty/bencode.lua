@@ -59,7 +59,9 @@ local function decode_all(str, already)
    end
 end
 
-local function encode_str(s) return #s .. ":" .. s end
+local function encode_str(s)
+  return #s .. ":" .. s
+end
 local function encode_int(n) return "i" .. tostring(n) .. "e" end
 
 local function encode_table(t)

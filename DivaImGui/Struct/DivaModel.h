@@ -1,4 +1,7 @@
+#pragma once
+#include "../Utilities/Vec3.h"
 #include "../stdafx.h"
+#include <sol/forward.hpp>
 
 namespace ReplNau::Ext {
 
@@ -13,13 +16,20 @@ namespace ReplNau::Ext {
 		uint64_t unknown1;
 		uint8_t fill3[0x10];
 		uint16_t unknown2;
-		uint16_t unknown3;
-		float x;
-		float y;
-		float z;
-		float x_rot;
-		float y_rot;
-		float z_rot;
+		Utilities::Vec3 position;
+		Utilities::Vec3 rotation;
+
+	public:
+		static void Bind(sol::state& lua)
+		{
+			sol::table C = lua["C"];
+
+			sol::usertype<DivaModel> DivaModel_type =
+				C.new_usertype<DivaModel>("DivaModel", sol::constructors<DivaModel()>(),
+					"name", &DivaModel::name,
+					"pos", &DivaModel::position,
+					"rot", &DivaModel::rotation);
+		}
 	};
 
 #pragma pack(pop)
