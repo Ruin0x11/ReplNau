@@ -12,6 +12,7 @@ local DEBUG_CAM_POS_Z_ADDR = 0x140FBC500
 local DEBUG_CAM_INTR_X_ADDR = 0x140FBC504
 local DEBUG_CAM_INTR_Y_ADDR = 0x140FBC508
 local DEBUG_CAM_INTR_Z_ADDR = 0x140FBC50C
+local DEBUG_CAM_ROT_ADDR = 0x141193EAC
 local DEBUG_CAM_PERS_ADDR = 0x140FBC514
 local DEBUG_CAM_NEAR_ADDR = 0x140FBC528
 
@@ -79,6 +80,14 @@ function debug_cam.set_focus(vec)
   memory.poke_float(DEBUG_CAM_INTR_Z_ADDR, vec.z)
 end
 
+function debug_cam.get_rot()
+  return memory.peek_float(DEBUG_CAM_ROT_ADDR)
+end
+
+function debug_cam.set_rot(rot)
+  memory.poke_float(DEBUG_CAM_ROT_ADDR, rot)
+end
+
 function debug_cam.get_fov_horiz()
   return memory.peek_float(DEBUG_CAM_PERS_ADDR)
 end
@@ -100,15 +109,9 @@ function debug_cam.copy_to_camera()
 
   debug_cam.get_pos(cam.pos)
   debug_cam.get_focus(cam.focus)
+  cam.rot = debug_cam.get_rot()
   cam.fov_horiz = debug_cam.get_fov_horiz()
   cam.fov_vert = debug_cam.get_fov_vert()
 end
-
-local function update_debug_camera()
-  if debug_cam.is_enabled() and debug_cam.get_mode() == debug_cam.mode.NORMAL then
-    debug_cam.copy_to_camera()
-  end
-end
-event.register("tick", "update debug camera", update_debug_camera)
 
 return debug_cam

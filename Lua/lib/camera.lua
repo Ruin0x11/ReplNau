@@ -51,6 +51,4 @@ function camera.unpatch()
   is_patched = false
 end
 
-event.register("engine_init", "camera patch", function() camera.patch() end)
-
 return camera

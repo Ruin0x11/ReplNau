@@ -47,7 +47,7 @@ function event.trigger(id, ...)
     local evs = event._callbacks[id]
     if evs then
         for _, ev in pairs(evs) do
-            local ok, err = xpcall(ev.cb, ...)
+            local ok, err = xpcall(ev.cb, debug.traceback, ...)
             if not ok then
               print(("Error running event '%s': %s"):format(id, err))
             end
@@ -132,3 +132,8 @@ local function update_nrepl()
     end
 end
 event.register("tick", "nrepl", update_nrepl)
+
+local function load_hooks()
+  require("hooks.init")
+end
+event.register("init", "load hooks", load_hooks)
